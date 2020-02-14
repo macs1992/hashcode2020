@@ -1,0 +1,69 @@
+package reader;
+
+import dto.ProblemDto;
+import resolvers.ProblemResolver;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ReadUtils {
+
+    public static ProblemDto readFile(String fileIn, ProblemResolver resolver, String fileOut){
+        File problemFile = new File(fileIn);
+        ArrayList<String> lines = readAllFileLines(problemFile);
+        return resolver.setUpData(lines,fileOut);
+    }
+    private static ArrayList<String> readAllFileLines(File file){
+        ArrayList<String> lines = new ArrayList<>();
+
+        try {
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNextLine()){
+                String line = scanner.nextLine();
+                lines.add(line);
+                System.out.println(line);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+        return lines;
+    }
+    public static int[] readLine(String line, int numberOfElements){
+        Scanner sce = new Scanner(line);
+        int [] data = new int [numberOfElements];
+        for(int i = 0; i < numberOfElements; i++){
+            data[i] = sce.nextInt();
+        }
+        return data;
+    }
+
+    public static int[][] readLines(ArrayList<String> lines){
+        return null;
+    }
+
+    public static void printSolution(ArrayList<String> lines,String fileName){
+        FileWriter fileWriter = null;
+
+        try {
+            fileWriter = new FileWriter(fileName);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        for(String line: lines){
+            printWriter.println(line);
+            System.out.println(lines);
+        }
+        printWriter.close();
+    }
+    public static String transformArray(ArrayList<Integer> list){
+      String sr = "";
+      for (Integer val: list){
+          sr+= " " + val;
+      }
+      System.out.println(sr);
+      return sr.substring(1);
+    }
+}
