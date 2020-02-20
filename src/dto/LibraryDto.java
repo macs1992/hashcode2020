@@ -6,5 +6,5 @@ public class LibraryDto {
 	public int daysCost;
 	public int bocksPerDay;
 	public int [] books;
-	public int score;
+	public double score;
 }

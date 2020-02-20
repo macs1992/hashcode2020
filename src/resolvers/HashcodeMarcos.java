@@ -19,7 +19,7 @@ public class HashcodeMarcos implements ProblemResolver {
         int libraries = firstLineData[1];
         int days = firstLineData[2];
         int [] scores = ReadUtils.readLine(lines.get(1),books);
-        int [] allbooks = new int[books];
+        boolean [] allbooks = new boolean[books];
         
         ArrayList<LibraryDto> libs = new ArrayList<>();        
         int line = 1;
@@ -33,19 +33,30 @@ public class HashcodeMarcos implements ProblemResolver {
             dto.bocksPerDay= data[2];
             line++;
             dto.books = ReadUtils.readLine(lines.get(line),dto.nBooks);
-            calculateScore(dto,scores);
-            libs.add(dto);
-        } 
-    }
+            dto.score = calculateScore(dto,scores);
+            //recalcular score
+            libs.add(dto);  
+        }
+            
+        int totalLibraries = 0;
+        int daysConsumed = 0;
+        ArrayList<int[]> solution = new ArrayList<>();
+        while (daysConsumed <= days) {
+        	double maxScore = 0D;
+        	
+        }
+     
+        
+        
+        
+    }   
     
-    
-    private int calculateScore (LibraryDto lib,int [] scores) {    	
+    private double calculateScore (LibraryDto lib,int [] scores) {    	
     	int scoreBooks = 0;
-    	for(int i = 0; i < scores.length ; i++) {
-    		scoreBooks += scores[i];
+    	for(int i = 0; i < lib.nBooks ; i++) {
+    		scoreBooks += scores[lib.books[i]];
     	}
-    	System.out.println(scoreBooks);
-    	return scoreBooks;
+    	return (scoreBooks * lib.nBooks) / lib.bocksPerDay  ;
     	
     	
     }
