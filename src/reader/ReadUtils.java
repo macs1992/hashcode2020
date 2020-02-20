@@ -9,10 +9,10 @@ import java.util.Scanner;
 
 public class ReadUtils {
 
-    public static ProblemDto readFile(String fileIn, ProblemResolver resolver, String fileOut){
+    public static void readFile(String fileIn, ProblemResolver resolver, String fileOut){
         File problemFile = new File(fileIn);
         ArrayList<String> lines = readAllFileLines(problemFile);
-        return resolver.setUpData(lines,fileOut);
+        resolver.setUpData(lines,fileOut);
     }
     private static ArrayList<String> readAllFileLines(File file){
         ArrayList<String> lines = new ArrayList<>();

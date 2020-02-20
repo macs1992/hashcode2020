@@ -8,14 +8,6 @@ public class mainProblemPizza {
 
     public static void main(String args[]){
         ProblemResolver resolver = new ProblemPizzaResolver();
-        try {
-            String current = new java.io.File( "." ).getCanonicalPath();
-            System.out.println("Current dir:"+current);
-            String currentDir = System.getProperty("user.dir");
-            System.out.println("Current dir using System:" +currentDir);
-        }catch (Exception e){
-            System.out.println(e);
-        }
 
         ReadUtils.readFile("in/a_example.in",resolver,"out/a_example.out");
         ReadUtils.readFile("in/b_small.in",resolver,"out/b_small.out");
