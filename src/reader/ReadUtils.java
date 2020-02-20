@@ -53,7 +53,6 @@ public class ReadUtils {
         PrintWriter printWriter = new PrintWriter(fileWriter);
         for(String line: lines){
             printWriter.println(line);
-            System.out.println(lines);
         }
         printWriter.close();
     }

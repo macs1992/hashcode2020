@@ -2,6 +2,8 @@ package resolvers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import dto.LibraryDto;
@@ -40,11 +42,52 @@ public class HashcodeMarcos implements ProblemResolver {
             
         int totalLibraries = 0;
         int daysConsumed = 0;
-        ArrayList<int[]> solution = new ArrayList<>();
-        while (daysConsumed <= days) {
-        	double maxScore = 0D;
+        ArrayList<String> solution = new ArrayList<>();
+        ArrayList<LibraryDto> libsOrder = new ArrayList<>();
+    	Collections.sort(libs, new Comparator<LibraryDto>() {
+            @Override
+            public int compare(LibraryDto book1, LibraryDto book2)
+            {
+            	
+                return  book1.score < book2.score ? 1 : 0;
+            }
+        });
+    	for(LibraryDto dto : libs) {
+    		daysConsumed += dto.daysCost;
+    		if(daysConsumed <= days) {
+    			libsOrder.add(dto);
+    		} else {
+    			break;
+    		}
+    		
+    	}       
+        solution.add(libsOrder.size()+"");
+   
+        
+        for(LibraryDto dto: libsOrder) {        	
+        	
+        	ArrayList<Integer> books2 = new ArrayList<Integer>();
+        	
+        	for(int i = 0; i < dto.books.length; i++) {
+        		books2.add(dto.books[i]);        		
+        	}       
+        	Collections.sort(books2, new Comparator<Integer>() {
+                @Override
+                public int compare(Integer book1, Integer book2)
+                {
+
+                    return  scores[book1] - scores[book2];
+                }
+            });
+        	String library = "";
+        	solution.add(dto.id +" " + books2.size());
+        	for(Integer num: books2) {
+        		library+= " " + num;
+        	}
+        	solution.add(library.substring(1));
         	
         }
+        ReadUtils.printSolution(solution, solutionFileName);
      
         
         
