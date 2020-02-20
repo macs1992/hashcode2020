@@ -21,8 +21,7 @@ public class ReadUtils {
             Scanner scanner = new Scanner(file);
             while(scanner.hasNextLine()){
                 String line = scanner.nextLine();
-                lines.add(line);
-                System.out.println(line);
+                lines.add(line);             
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -63,7 +62,6 @@ public class ReadUtils {
       for (Integer val: list){
           sr+= " " + val;
       }
-      System.out.println(sr);
       return sr.substring(1);
     }
 }
