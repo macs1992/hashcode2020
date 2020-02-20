@@ -22,6 +22,9 @@ public class HashcodeMarcos implements ProblemResolver {
         int days = firstLineData[2];
         int [] scores = ReadUtils.readLine(lines.get(1),books);
         boolean [] allbooks = new boolean[books];
+        for(int i = 0 ; i < books ; i ++) {
+        	allbooks[i] = false;
+        }
         
         ArrayList<LibraryDto> libs = new ArrayList<>();        
         int line = 1;
@@ -47,8 +50,7 @@ public class HashcodeMarcos implements ProblemResolver {
     	Collections.sort(libs, new Comparator<LibraryDto>() {
             @Override
             public int compare(LibraryDto book1, LibraryDto book2)
-            {
-            	
+            {            	
                 return  book1.score < book2.score ? 1 : 0;
             }
         });
@@ -70,21 +72,34 @@ public class HashcodeMarcos implements ProblemResolver {
         	
         	for(int i = 0; i < dto.books.length; i++) {
         		books2.add(dto.books[i]);        		
-        	}       
+        	}
+        	
         	Collections.sort(books2, new Comparator<Integer>() {
                 @Override
                 public int compare(Integer book1, Integer book2)
-                {
-
+                {                	
                     return  scores[book1] - scores[book2];
                 }
             });
         	String library = "";
-        	solution.add(dto.id +" " + books2.size());
+        	int total = 0;
+        	
         	for(Integer num: books2) {
-        		library+= " " + num;
+        		if(!allbooks[num]) {
+        			total ++;
+        			allbooks[num] = true;
+            		library+= " " + num;
+        		}
+        		
         	}
-        	solution.add(library.substring(1));
+        	if(total!=0) {
+        		solution.add(dto.id +" " + total);
+        		solution.add(library.substring(1));
+        	} else {
+        		solution.add(dto.id +" 1");
+        		solution.add(books2.get(0)+"");
+        	}
+        	
         	
         }
         ReadUtils.printSolution(solution, solutionFileName);
@@ -99,7 +114,7 @@ public class HashcodeMarcos implements ProblemResolver {
     	for(int i = 0; i < lib.nBooks ; i++) {
     		scoreBooks += scores[lib.books[i]];
     	}
-    	return (scoreBooks * lib.nBooks) / lib.bocksPerDay  ;
+    	return (scoreBooks  / lib.bocksPerDay ) ;
     	
     	
     }
