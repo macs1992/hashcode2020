@@ -1,11 +1,14 @@
 package reader;
 
-import dto.ProblemDto;
-import resolvers.ProblemResolver;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import resolvers.ProblemResolver;
 
 public class ReadUtils {
 
@@ -21,11 +24,10 @@ public class ReadUtils {
             Scanner scanner = new Scanner(file);
             while(scanner.hasNextLine()){
                 String line = scanner.nextLine();
-                lines.add(line);             
+                lines.add(line);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println(e);
         }
         return lines;
     }

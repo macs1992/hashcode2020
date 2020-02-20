@@ -1,9 +1,9 @@
 package resolvers;
 
-import dto.ProblemPizzaDto;
-import reader.ReadUtils;
-
 import java.util.ArrayList;
+
+import reader.ReadUtils;
+import dto.ProblemPizzaDto;
 
 public class ProblemPizzaResolver implements ProblemResolver {
 
@@ -11,7 +11,12 @@ public class ProblemPizzaResolver implements ProblemResolver {
 
     @Override
     public void setUpData(ArrayList<String> lines, String solutionFileName) {
-    
+        ProblemPizzaDto dto = new ProblemPizzaDto();
+        int [] firstLineData = ReadUtils.readLine(lines.get(0),2);
+        dto.maximunSlices = firstLineData[0];
+        dto.typesOfPizza = firstLineData[1];
+        dto.pizzas = ReadUtils.readLine(lines.get(1),dto.typesOfPizza);
+        resolveProblem(dto,solutionFileName);
     }
 
     //Posible solución voraz (no buena)
