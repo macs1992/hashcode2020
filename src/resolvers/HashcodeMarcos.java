@@ -51,13 +51,15 @@ public class HashcodeMarcos implements ProblemResolver {
             @Override
             public int compare(LibraryDto book1, LibraryDto book2)
             {            	
-                return  book1.score < book2.score ? 1 : 0;
+                return  book2.score - book1.score;
             }
         });
     	for(LibraryDto dto : libs) {
     		daysConsumed += dto.daysCost;
     		if(daysConsumed <= days) {
+    			dto.dayEnd = daysConsumed;
     			libsOrder.add(dto);
+    			
     		} else {
     			break;
     		}
@@ -78,14 +80,15 @@ public class HashcodeMarcos implements ProblemResolver {
                 @Override
                 public int compare(Integer book1, Integer book2)
                 {                	
-                    return  scores[book1] - scores[book2];
+                    return scores[book2] - scores[book1];
                 }
             });
         	String library = "";
         	int total = 0;
         	
         	for(Integer num: books2) {
-        		if(!allbooks[num]) {
+        		int day = dto.dayEnd + (dto.bocksPerDay * total);
+        		if(!allbooks[num] && day <= days) {
         			total ++;
         			allbooks[num] = true;
             		library+= " " + num;
@@ -109,12 +112,12 @@ public class HashcodeMarcos implements ProblemResolver {
         
     }   
     
-    private double calculateScore (LibraryDto lib,int [] scores) {    	
+    private int calculateScore (LibraryDto lib,int [] scores) {    	
     	int scoreBooks = 0;
     	for(int i = 0; i < lib.nBooks ; i++) {
     		scoreBooks += scores[lib.books[i]];
     	}
-    	return (scoreBooks  / lib.bocksPerDay ) ;
+    	return scoreBooks / (lib.bocksPerDay * lib.nBooks + lib.daysCost) ;
     	
     	
     }
